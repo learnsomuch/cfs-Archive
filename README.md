@@ -1,6 +1,13 @@
 # cfs (Cloud File System)
 
 
+Initial Implementation plan:
+- read URL from arguments
+- do regular expression for URL, PORT, PATH
+- wget clone
+- read within anchor <a> and </a>
+- display list
+
 
 Ideas:
 - wget clone
