@@ -2,8 +2,8 @@
 
 
 Initial Implementation plan:
-- read URL from arguments
-- do regular expression for URL, PORT, PATH
+- read URL from arguments (done)
+- do regular expression for URL, PORT, PATH (done)
 - wget clone
 - read within anchor <a> and </a>
 - display list
