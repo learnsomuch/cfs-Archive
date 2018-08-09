@@ -6,6 +6,16 @@
 /* Main function */
 int main(int argc, char *argv[]) {
 
+
+	if(argv[1] == NULL) {
+		
+		printf("Usage: cfs <URL>\n");
+		printf("<URL>\t\t Support http, https, port, path \n");
+		printf("If no arguments, print help\n");
+
+		return 1;
+	}
+
 	char *initialurl = argv[1];
 	char *initialclone = malloc(sizeof(initialurl) + 1);
 
