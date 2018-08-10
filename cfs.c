@@ -24,6 +24,7 @@ int main(int argc, char *argv[]) {
 	/* Variables - argument */
 	char *initialurl = argv[1];
 	char *initialclone = malloc(sizeof(initialurl) + 1);
+	char *initialagain = malloc(sizeof(initialurl) + 1);
 
 	/* Cloning variable since we need to use strstr twice */
 	if(initialclone != NULL) {
@@ -32,6 +33,13 @@ int main(int argc, char *argv[]) {
 		memcpy(initialclone, initialurl, strlen(initialurl) + 1);
 		initialclone[strlen(argv[1]) + 1] = '\0';
 	}
+
+	if(initialagain != NULL) {
+
+                /* allocate same size as source to target and copy data */
+                memcpy(initialagain, initialurl, strlen(initialurl) + 1);
+                initialagain[strlen(argv[1]) + 1] = '\0';
+        }
 
 	/* Constant variables */
 	const char *starthttp = "http://";	
@@ -43,6 +51,7 @@ int main(int argc, char *argv[]) {
 		/* In order to ignore first n chars */
 		initialurl = initialurl + strlen(starthttp);
 		initialclone = initialclone + strlen(starthttp);
+		initialagain = initialagain + strlen(starthttp);
 		printf("REMOVED HTTP: %s\n", initialurl);	    
 		
 		/* Split based on colon */
@@ -56,7 +65,7 @@ int main(int argc, char *argv[]) {
 		}	 
 		
 		/* split based on colon */
-		char *webtoken = strtok(initialurl, ":");
+		char *webtoken = strtok(initialagain, ":");
 		if(webtoken) {
     			printf("WEB: %s\n", strtok(webtoken, "/"));
 		}
@@ -74,7 +83,8 @@ int main(int argc, char *argv[]) {
         
 		initialurl = initialurl + strlen(starthttps);
                 initialclone = initialclone + strlen(starthttps);
-                printf("REMOVED HTTPS: %s\n", initialurl);
+        	initialagain = initialagain + strlen(starthttps);
+	        printf("REMOVED HTTPS: %s\n", initialurl);
 
 		/* split based on colon */
                 char *argport = strstr(initialurl, ":");
@@ -86,7 +96,7 @@ int main(int argc, char *argv[]) {
 		}
 
 		/* split based on colon */
-                char *webtoken = strtok(initialurl, ":");
+                char *webtoken = strtok(initialagain, ":");
 		if(webtoken) {
                         printf("WEB: %s\n", strtok(webtoken, "/"));
                 }
@@ -112,7 +122,7 @@ int main(int argc, char *argv[]) {
 		}
 
 		/* split based on colon */
-                char *webtoken = strtok(initialurl, ":");
+                char *webtoken = strtok(initialagain, ":");
                 if(webtoken) {
                         printf("WEB: %s\n", strtok(webtoken, "/"));
                 }
