@@ -4,7 +4,7 @@
 Initial Implementation plan:
 - read URL from arguments (done)
 - do regular expression for URL, PORT, PATH (done)
-- wget index file based on URL PATH
+- wget index file based on URL PATH (done)
 - read within anchor <a> and </a>
 - display list
 
