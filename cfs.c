@@ -1,10 +1,46 @@
 /* Header files 
    stdio.h - for input and output
    string.h - for strlen, strncmp, strstr, etc
-   malloc.h - for memcpy */
+   stdlib.h - for memcpy, malloc, free */
 #include <stdio.h>
 #include <string.h>
-#include <malloc.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
+
+/* wget clone for index file */
+void wget(char *weburl, char *argport, char *argpath) {
+
+	/* Variables */
+	struct addrinfo hints, *res;
+	int sockfd;
+	/* response for output of content, header is for GET request */
+    	char response[2048];
+    	char header[100];
+
+	/* get info */
+	memset(&hints, 0,sizeof hints);
+	hints.ai_family = AF_UNSPEC;
+    	hints.ai_socktype = SOCK_STREAM;
+	
+	/* get address info */
+	getaddrinfo(weburl, argport, &hints, &res);
+	
+	/* create and connect socket */
+	sockfd = socket(res->ai_family,res->ai_socktype,res->ai_protocol);
+	connect(sockfd,res->ai_addr,res->ai_addrlen);
+
+	/* appened dynamic url content to header request */
+	sprintf(header, "GET %s/ HTTP/1.1\r\nHost: %s\r\nContent-Type: text/plain\r\n\r\n", argpath, weburl);
+
+	/* send header details and receive data */
+    	send(sockfd, header, strlen(header), 0);
+	recv(sockfd, response, sizeof(response)-1, 0);
+
+	/* Print data for debugging (temporary) */
+	printf("%s", response);
+}
 
 /* Main function */
 int main(int argc, char *argv[]) {
@@ -24,21 +60,21 @@ int main(int argc, char *argv[]) {
 	/* Variables - argument */
 	char *initialurl = argv[1];
 	char *initialclone = malloc(sizeof(initialurl) + 1);
-	char *initialagain = malloc(sizeof(initialurl) + 1);
+	char *initialagain = malloc(strlen(initialurl) + 1);
 
 	/* Cloning variable since we need to use strstr twice */
 	if(initialclone != NULL) {
 
 		/* allocate same size as source to target and copy data */
 		memcpy(initialclone, initialurl, strlen(initialurl) + 1);
-		initialclone[strlen(argv[1]) + 1] = '\0';
+		initialclone[strlen(initialurl) + 1] = '\0';
 	}
 
 	if(initialagain != NULL) {
 
                 /* allocate same size as source to target and copy data */
                 memcpy(initialagain, initialurl, strlen(initialurl) + 1);
-                initialagain[strlen(argv[1]) + 1] = '\0';
+                initialagain[strlen(initialurl) + 1] = '\0';
         }
 
 	/* Constant variables */
@@ -55,29 +91,33 @@ int main(int argc, char *argv[]) {
 		printf("REMOVED HTTP: %s\n", initialurl);	    
 		
 		/* Split based on colon */
-		char *argport = strstr(initialurl, ":");
-    		if(argport) {
-			printf("PORT: %s\n", strtok(argport, "/") + 1);
-    		} else {
-			/* default values */
-			argport = "80";
-			printf("PORT: %s\n", argport);
-		}	 
-		
-		/* split based on colon */
-		char *webtoken = strtok(initialagain, ":");
-		if(webtoken) {
-    			printf("WEB: %s\n", strtok(webtoken, "/"));
-		}
+        	char *argport = strstr(initialurl, ":");
+        	if(argport) {
+			argport = strtok(argport, "/") + 1;
+                	printf("PORT: %s\n", argport);
+        	} else {
+                	/* default values */
+                	argport = "80";
+                	printf("PORT: %s\n", argport);
+        	}
 
-		/* split based on slash */
-		char *argpath = strstr(initialclone, "/");
-   	 	if(argpath) {
-			printf("PATH: %s\n", argpath);
-		} else {
-			argpath = "/";
-			printf("PATH: %s\n", argpath);
-		}
+        	/* split based on colon */
+        	char *webtoken = strtok(initialagain, ":");
+        	if(webtoken) {
+                	printf("WEB: %s\n", strtok(webtoken, "/"));
+        	}
+
+        	/* split based on slash */
+        	char *argpath = strstr(initialclone, "/");
+        	if(argpath) {
+                	printf("PATH: %s\n", argpath);
+        	} else {
+                	argpath = "/";
+               		printf("PATH: %s\n", argpath);
+        	}
+
+		/* calling wget function with specified arguments */
+		wget(webtoken, argport, argpath);
 
 	} else if(strncmp(initialurl, "https://", strlen(starthttps)) == 0) {
         
@@ -89,7 +129,8 @@ int main(int argc, char *argv[]) {
 		/* split based on colon */
                 char *argport = strstr(initialurl, ":");
                 if(argport) {
-                        printf("PORT: %s\n", strtok(argport, "/") + 1);
+                	argport = strtok(argport, "/") + 1;
+		        printf("PORT: %s\n", argport);
                 } else {
 			argport = "443";
                         printf("PORT: %s\n", argport);
@@ -110,12 +151,16 @@ int main(int argc, char *argv[]) {
 			printf("PATH: %s\n", argpath);
                 }
 		
+		/* calling wget function with specified arguments */
+                wget(webtoken, argport, argpath);
+
 	} else {
 		
 		/* split based on colon */
 		char *argport = strstr(initialurl, ":");
                 if(argport) {
-                        printf("PORT: %s\n", strtok(argport, "/") + 1);
+			argport = strtok(argport, "/") + 1;
+                        printf("PORT: %s\n", argport);
                 } else {
 			argport = "80";
                         printf("PORT: %s\n", argport);
@@ -135,7 +180,11 @@ int main(int argc, char *argv[]) {
                         argpath = "/";
 			printf("PATH: %s\n", argpath);
                 }
-	}	
+
+		printf("%s %s %s",webtoken, argport, argpath); 
+		/* calling wget function with specified arguments */
+                wget(webtoken, argport, argpath);	
+	}
 
 	/* Return success code */
    	return 0;
