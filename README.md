@@ -1,6 +1,18 @@
 # cfs (Cloud Filesystem)
 
 
+## Setup
+```
+  # git clone https://github.com/learnsomuch/cfs.git
+  # cd cfs
+  # make 
+  # make clean
+  # ./cfs
+  Usage: cfs <URL>
+  <URL>		 Support http, https, port, path 
+  If no arguments, print help
+```
+
 Initial Implementation plan:
 - read URL from arguments (done)
 - do regular expression for URL, PORT, PATH (done)
