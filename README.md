@@ -11,6 +11,9 @@
   Usage: cfs <URL>
   <URL>		 Support http, https, port, path 
   If no arguments, print help
+  
+  
+  Sample execution: ./cfs learnsomuch.com/demo
 ```
 
 Initial Implementation plan:
