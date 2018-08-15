@@ -9,6 +9,8 @@
 /* Main function */
 int main(int argc, char *argv[]) {
 
+	char str[2048];
+
 	/* Validate argument input */
 	if(argv[1] == NULL) {
 		
@@ -50,10 +52,12 @@ int main(int argc, char *argv[]) {
 		
 		/* In order to ignore first n chars */
 		initialurl = initialurl + strlen(starthttp);
+//		memmove(initialclone, initialclone, strlen(initialclone));
 		initialclone = initialclone + strlen(starthttp);
 		initialagain = initialagain + strlen(starthttp);
 		printf("REMOVED HTTP: %s\n", initialurl);	    
-		
+		printf("REMOVED HTTP: %s\n", initialclone);		
+	
 		/* Split based on colon */
         	char *argport = strstr(initialurl, ":");
         	if(argport) {
@@ -65,7 +69,7 @@ int main(int argc, char *argv[]) {
                 	printf("PORT: %s\n", argport);
         	}
 
-        	/* split based on colon */
+		/* split based on colon */
         	char *webtoken = strtok(initialagain, ":");
         	if(webtoken) {
                 	printf("WEB: %s\n", strtok(webtoken, "/"));
@@ -74,14 +78,18 @@ int main(int argc, char *argv[]) {
         	/* split based on slash */
         	char *argpath = strstr(initialclone, "/");
         	if(argpath) {
-                	printf("PATH: %s\n", argpath);
+			printf("PATH: %s\n", argpath);
         	} else {
+			printf("PATH: %s\n", argpath);
                 	argpath = "/";
                		printf("PATH: %s\n", argpath);
         	}
 
+		printf("%s %s %s",webtoken, argport, argpath);
+
 		/* calling wget function with specified arguments */
-		wget(webtoken, argport, argpath);
+		wget(webtoken, argport, argpath, str);
+		filter(str);		
 
 	} else if(strncmp(initialurl, "https://", strlen(starthttps)) == 0) {
         
@@ -116,7 +124,8 @@ int main(int argc, char *argv[]) {
                 }
 		
 		/* calling wget function with specified arguments */
-                wget(webtoken, argport, argpath);
+                wget(webtoken, argport, argpath, str);
+		filter(str);
 
 	} else {
 		
@@ -146,8 +155,11 @@ int main(int argc, char *argv[]) {
                 }
 
 		printf("%s %s %s",webtoken, argport, argpath); 
+
 		/* calling wget function with specified arguments */
-                wget(webtoken, argport, argpath);	
+		wget(webtoken, argport, argpath, str);
+		filter(str);
+
 	}
 
 	/* Return success code */

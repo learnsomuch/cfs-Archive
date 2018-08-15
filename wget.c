@@ -6,7 +6,7 @@
 #include <netdb.h>
 
 /* wget clone for index file */
-void wget(char *weburl, char *argport, char *argpath) {
+char *wget(char *weburl, char *argport, char *argpath, char *str) {
 
         /* Variables */
         struct addrinfo hints, *res;
@@ -36,4 +36,5 @@ void wget(char *weburl, char *argport, char *argpath) {
 
         /* Print data for debugging (temporary) */
         printf("%s", response);
+	memcpy(str, response,sizeof(response));
 }
