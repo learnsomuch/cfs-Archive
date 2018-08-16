@@ -20,8 +20,11 @@ Initial Implementation plan:
 - read URL from arguments (done)
 - do regular expression for URL, PORT, PATH (done)
 - wget index file based on URL PATH (done)
-- read within anchor <a> and </a>
-- display list
+- read within anchor <a> and </a> (done)
+- display list (done)
+
+BUGS:
+- http and https doesnt work yet. 
 
 Future implementation plans:
 - read config file with linux path and URL
