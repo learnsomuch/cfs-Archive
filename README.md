@@ -13,7 +13,11 @@
   If no arguments, print help
   
   
-  Sample execution: ./cfs learnsomuch.com/demo
+  Sample execution: 
+  # ./cfs learnsomuch.com/demo
+  ../
+  test/
+  README.md
 ```
 
 Initial Implementation plan:
