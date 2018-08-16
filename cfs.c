@@ -133,28 +133,30 @@ int main(int argc, char *argv[]) {
 		char *argport = strstr(initialurl, ":");
                 if(argport) {
 			argport = strtok(argport, "/") + 1;
-                        printf("PORT: %s\n", argport);
+//                        printf("PORT: %s\n", argport);
                 } else {
 			argport = "80";
-                        printf("PORT: %s\n", argport);
+//                        printf("PORT: %s\n", argport);
 		}
 
 		/* split based on colon */
                 char *webtoken = strtok(initialagain, ":");
                 if(webtoken) {
-                        printf("WEB: %s\n", strtok(webtoken, "/"));
+			webtoken = strtok(webtoken, "/");
+//   	                  printf("WEB: %s\n", strtok(webtoken, "/"));
                 }
 
 		/* split based on slash */
                 char *argpath = strstr(initialclone, "/");
     		if(argpath) {
-                        printf("PATH: %s\n", argpath);
+			argpath = argpath;
+//                        printf("PATH: %s\n", argpath);
                 } else {
                         argpath = "/";
-			printf("PATH: %s\n", argpath);
+//			printf("PATH: %s\n", argpath);
                 }
 
-		printf("%s %s %s",webtoken, argport, argpath); 
+//		printf("%s %s %s",webtoken, argport, argpath); 
 
 		/* calling wget function with specified arguments */
 		wget(webtoken, argport, argpath, str);

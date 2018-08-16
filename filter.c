@@ -32,11 +32,6 @@ void filter(char *str) {
 			pos_angle=strchr(p, ch);
 			K[a] = (p - str) + (pos_angle - p) + 1;
 	
-//	printf("Array K[%d]: %tu\n", a, (p - str) + (pos_angle - p) + 1);
-	
-//	printf("CONTENT:%.*s\n", 10, p + (pos_angle - p) + 1);	
-	//printf("Start : %tu\n", p - str);
-
 			a++;	
 		}
 
@@ -46,8 +41,6 @@ void filter(char *str) {
 			B[b] = q - str;
 			b++;
 
-//	printf("Array B[%d]: %tu\n", b, q - str);
-	
 	/* special case for the empty string */
 			if (*q == '\0') {
             			break;
@@ -58,13 +51,9 @@ void filter(char *str) {
 		int i;
 		if (a == b) {
 
-//	printf("EQUAL\n");
-	
 			for(i = 0; i < a; i++) {
 		
 				C[i] = B[i] - K[i];
-//		printf("Array C[%d]: %d\n", i, C[i]);
-		
 				printf("%.*s\n", C[i], str + K[i]);
 			}
 		}

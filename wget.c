@@ -35,6 +35,6 @@ char *wget(char *weburl, char *argport, char *argpath, char *str) {
         recv(sockfd, response, sizeof(response)-1, 0);
 
         /* Print data for debugging (temporary) */
-        printf("%s", response);
+//        printf("%s", response);
 	memcpy(str, response,sizeof(response));
 }
