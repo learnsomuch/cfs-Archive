@@ -28,7 +28,8 @@ Initial Implementation plan:
 - display list (done)
 
 BUGS:
-- http and https doesnt work yet. 
+- http and https doesnt work yet.
+- path has some problem in different environments. 
 
 Future implementation plans:
 - read config file with linux path and URL
