@@ -27,8 +27,8 @@ Initial Implementation plan:
 - read within anchor <a> and </a> (done)
 - display list (done)
 
-BUGS:
-- http and https doesnt work yet.
+BUGS: (Need to replace with sscanf in order to fix the problems)
+- http and https doesnt work yet. 
 - path has some problem in different environments. 
 
 Future implementation plans:
