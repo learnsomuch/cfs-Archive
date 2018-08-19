@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-I.
 DEPS = cfslib.h
-OBJ = cfs.o wget.o filter.o 
+OBJ = cfs.o wget.o filter.o
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)

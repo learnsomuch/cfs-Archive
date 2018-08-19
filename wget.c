@@ -27,8 +27,14 @@ char *wget(char *weburl, char *argport, char *argpath, char *str) {
         sockfd = socket(res->ai_family,res->ai_socktype,res->ai_protocol);
         connect(sockfd,res->ai_addr,res->ai_addrlen);
 
-        /* appened dynamic url content to header request */
-        sprintf(header, "GET %s/ HTTP/1.1\r\nHost: %s\r\nContent-Type: text/plain\r\n\r\n", argpath, weburl);
+	/* compare first string of argpath. If / is missing or not */
+	/* appened dynamic url content to header request */
+	if(strncmp(argpath, "/", 1) != 0) {
+                        
+         	sprintf(header, "GET /%s/ HTTP/1.1\r\nHost: %s\r\nContent-Type: text/plain\r\n\r\n", argpath, weburl);
+        } else {
+		sprintf(header, "GET %s/ HTTP/1.1\r\nHost: %s\r\nContent-Type: text/plain\r\n\r\n", argpath, weburl);	
+	}
 
         /* send header details and receive data */
         send(sockfd, header, strlen(header), 0);

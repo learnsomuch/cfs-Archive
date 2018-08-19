@@ -50,32 +50,29 @@ int main(int argc, char *argv[]) {
 	/* check if argument input starts with http, https or none */
 	if(strncmp(initialurl, starthttp, strlen(starthttp)) == 0) {
 		
-		/* In order to ignore first n chars */
-		initialurl = initialurl + strlen(starthttp);
-//		memmove(initialclone, initialclone, strlen(initialclone));
-		initialclone = initialclone + strlen(starthttp);
-		initialagain = initialagain + strlen(starthttp);
-		printf("REMOVED HTTP: %s\n", initialurl);	    
-		printf("REMOVED HTTP: %s\n", initialclone);		
 	
-		/* Split based on colon */
+		char webtoken[1048];
+		char argpath[1048];
+		int port = 80;
+		sscanf(argv[1], "http://%99[^:]:%99d/%99[^\n]", webtoken, &port, argpath);
+
+		char argport[100];
+		sprintf(argport, "%d", port);
+/*	
         	char *argport = strstr(initialurl, ":");
         	if(argport) {
 			argport = strtok(argport, "/") + 1;
                 	printf("PORT: %s\n", argport);
         	} else {
-                	/* default values */
                 	argport = "80";
                 	printf("PORT: %s\n", argport);
         	}
 
-		/* split based on colon */
         	char *webtoken = strtok(initialagain, ":");
         	if(webtoken) {
                 	printf("WEB: %s\n", strtok(webtoken, "/"));
         	}
 
-        	/* split based on slash */
         	char *argpath = strstr(initialclone, "/");
         	if(argpath) {
 			printf("PATH: %s\n", argpath);
@@ -84,9 +81,7 @@ int main(int argc, char *argv[]) {
                 	argpath = "/";
                		printf("PATH: %s\n", argpath);
         	}
-
-		printf("%s %s %s",webtoken, argport, argpath);
-
+*/
 		/* calling wget function with specified arguments */
 		wget(webtoken, argport, argpath, str);
 		filter(str);		
