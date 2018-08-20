@@ -27,10 +27,6 @@ Initial Implementation plan:
 - read within anchor <a> and </a> (done)
 - display list (done)
 
-BUGS: (Need to replace with sscanf in order to fix the problems)
-- http and https doesnt work yet. 
-- path has some problem in different environments. 
-
 Future implementation plans:
 - read config file with linux path and URL
 - detect local linux path, read URL
