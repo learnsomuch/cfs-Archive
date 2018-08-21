@@ -13,14 +13,9 @@ int main(int argc, char *argv[]) {
 
 	/* Validate argument input */
 	if(argv[1] == NULL) {
-		
+
 		/* Print help details and exit */
-		printf("Usage: cfs <URL>\n");
-		printf("<URL>\t\t Support http, https, port, path \n");
-		printf("If no arguments, print help\n");
-	
-		/* Failed return code */
-		return 1;
+		help_function();
 	}
 
 	/* Variables - argument */
@@ -58,32 +53,11 @@ int main(int argc, char *argv[]) {
 
 		char argport[100];
 		sprintf(argport, "%d", port);
-/*	
-        	char *argport = strstr(initialurl, ":");
-        	if(argport) {
-			argport = strtok(argport, "/") + 1;
-                	printf("PORT: %s\n", argport);
-        	} else {
-                	argport = "80";
-                	printf("PORT: %s\n", argport);
-        	}
-
-        	char *webtoken = strtok(initialagain, ":");
-        	if(webtoken) {
-                	printf("WEB: %s\n", strtok(webtoken, "/"));
-        	}
-
-        	char *argpath = strstr(initialclone, "/");
-        	if(argpath) {
-			printf("PATH: %s\n", argpath);
-        	} else {
-			printf("PATH: %s\n", argpath);
-                	argpath = "/";
-               		printf("PATH: %s\n", argpath);
-        	}
-*/
+		
 		/* calling wget function with specified arguments */
 		wget(webtoken, argport, argpath, str);
+		
+		/* calling filter function in order to get file name */
 		filter(str);		
 
 	} else if(strncmp(initialurl, "https://", strlen(starthttps)) == 0) {
