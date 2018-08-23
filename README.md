@@ -24,3 +24,7 @@ Future implementation plans:
 - read config file with linux path and URL
 - detect local linux path, read URL
 - Support switches (eg. ls, sync)
+
+BUGS:
+- Fix segmentation faults due to switches. 
+- add validations.
