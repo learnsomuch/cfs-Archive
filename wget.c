@@ -30,8 +30,9 @@ char *wget(char *weburl, char *argport, char *argpath, char *str) {
 	/* compare first string of argpath. If / is missing or not */
 	/* appened dynamic url content to header request */
 	if(strncmp(argpath, "/", 1) != 0) {
-                        
-         	sprintf(header, "GET /%s/ HTTP/1.1\r\nHost: %s\r\nContent-Type: text/plain\r\n\r\n", argpath, weburl);
+  		
+		sprintf(header, "GET /%s/ HTTP/1.1\r\nHost: %s\r\nContent-Type: text/html\r\n\r\n", argpath, weburl);                      
+        // 	sprintf(header, "GET /%s/ HTTP/1.1\r\nHost: %s\r\nContent-Type: text/plain\r\n\r\n", argpath, weburl);
         } else {
 		sprintf(header, "GET %s/ HTTP/1.1\r\nHost: %s\r\nContent-Type: text/plain\r\n\r\n", argpath, weburl);	
 	}
@@ -41,6 +42,6 @@ char *wget(char *weburl, char *argport, char *argpath, char *str) {
         recv(sockfd, response, sizeof(response)-1, 0);
 
         /* Print data for debugging (temporary) */
-//        printf("%s", response);
+        //printf("%s", response);
 	memcpy(str, response,sizeof(response));
 }
